@@ -11,13 +11,13 @@ import Message from '../components/Message'
 function ProductScreen() {
     const [qty, setQty] = useState(1)
 
-    const dispatch = useDispatch()
-    const productDetails = useSelector(state => state.productDetails)
-    const { loading, error, product } = productDetails
-
     const params = useParams()
     const productId = params.id
     let navigate = useNavigate()
+
+    const dispatch = useDispatch()
+    const productDetails = useSelector(state => state.productDetails)
+    const { loading, error, product } = productDetails
 
     useEffect(() => {
         dispatch(listProductDetails(productId))
@@ -33,7 +33,7 @@ function ProductScreen() {
             {loading ?
                 <Loader />
                 : error ?
-                    <Message variant='info'>{error}</Message>
+                    <Message variant='danger'>{error}</Message>
                     :
                     <div>
                         <Row>

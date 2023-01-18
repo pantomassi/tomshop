@@ -24,7 +24,7 @@ function HomeScreen() {
             {loading ?
                 <Loader />
                 : error ?
-                    <Message variant='info'>{error}</Message>
+                    <Message variant='danger'>{error}</Message>
                     :
                     <div>
                         <Row>
