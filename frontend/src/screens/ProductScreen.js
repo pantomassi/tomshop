@@ -13,7 +13,7 @@ function ProductScreen() {
 
     const params = useParams()
     const productId = params.id
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
@@ -29,7 +29,7 @@ function ProductScreen() {
 
     return (
         <div>
-            <Link to='/' className='btn btn-light my-3'>Go Back</Link>
+            <Link to='/' className='btn btn-light my-3'>Back To Store</Link>
             {loading ?
                 <Loader />
                 : error ?
@@ -105,7 +105,6 @@ function ProductScreen() {
                                                 </Row>
                                             </ListGroup.Item>
                                         )}
-
 
                                         <ListGroup.Item>
                                             <Button
