@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
         return name
 
 
-class UserSerializerWithRefreshToken(UserSerializer):
+class UserSerializerWithToken(UserSerializer):
     token = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
