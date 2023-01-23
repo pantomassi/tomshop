@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
 from .models import Product
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, UserSerializer, UserSerializerWithRefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -10,8 +11,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
 
-        data["username"] = self.user.username
-        data["email"] = self.user.email
+        serializer = UserSerializerWithRefreshToken(self.user).data
+
+        for key, value in serializer.items():
+            data[key] = value
 
         return data
 
@@ -33,6 +36,14 @@ def getRoutes(request):
         '/api/products/update/<id>/',
     ]
     return Response(routes)
+
+
+
+@api_view(['GET'])
+def getUserProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
